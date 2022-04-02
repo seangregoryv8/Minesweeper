@@ -11,57 +11,102 @@ export default class Square
      */
     constructor(id, isBomb, board)
     {
+        this.divElement = null;
+
         this.id = id;
-        this.currentId = null;
-        this.isBomb = isBomb;
+        this.class = isBomb;
         this.board = board;
         this.total = 0;
+        
+        this.checked = false;
+        this.flagged = false;
+
+        this.createSquare();
+    }
+
+    check()
+    {
+        this.checked = true;
+        this.divElement.classList.add('checked');
+    }
+
+    flag()
+    {
+        if (this.isBomb())
+        {
+            this.flagged = true;
+            this.divElement.classList.add('flag');
+            this.divElement.innerHTML = '🚩';
+        }
+    }
+
+    unflag()
+    {
+        this.flagged = false;
+        this.divElement.classList.remove('flag');
+        this.divElement.innerHTML = '';
+    }
+
+    setTotal(total)
+    {
+        this.total = total;
+        this.divElement.setAttribute('data', total);
     }
 
     createSquare()
     {
-        const squ = document.createElement('div');
-        squ.setAttribute('id', this.id);
-        squ.classList.add(this.isBomb);
-        GRID.appendChild(squ);
+        this.divElement = document.createElement('div');
+        this.divElement.setAttribute('id', this.id);
+        this.divElement.classList.add(this.class);
+        this.total = parseInt(this.divElement.getAttribute('data'));
+        GRID.appendChild(this.divElement);
 
-        squ.addEventListener('click', () => 
-        {
-            this.click(squ);
-        })
-        return squ;
+        this.addEvents();
     }
 
-    checkIfBomb()
+    addEvents()
     {
-        console.log(this.isBomb == 'bomb')
-        return this.isBomb == 'bomb';
+        this.divElement.addEventListener('click', () => 
+        {
+            this.click();
+        })
+
+        let s = this;
+
+        this.divElement.oncontextmenu = function(e) 
+        {
+            e.preventDefault();
+            if (s.flagged) s.unflag();
+            else s.flag();
+            s.board.game.checkForWin();
+        }
     }
+
+    isBomb() { return this.class == 'bomb'; }
 
     /**
      * 
-     * @param {HTMLDivElement} square
+     * @param {Square} square
      */
-    click(square)
+    click(square = this)
     {
         this.currentId = square.id;
-        if (this.board.game.isGameOver) return;
-        if (square.classList.contains('checked') || square.classList.contains('flag')) return
-        if (this.checkIfBomb())
+        if (square.board.game.isGameOver) return;
+        if (square.checked || square.flagged) return
+        if (this.isBomb())
         {
-            console.log('Game Over');
+            this.board.game.gameOver();
         }
         else
         {
-            this.total = parseInt(square.getAttribute('data'));
             if (this.total != 0)
             {
-                square.classList.add('checked')
-                square.innerHTML = this.total.toString();
+                square.check();
+                square.divElement.innerHTML = this.total.toString();
                 return;
             }
-            this.board.checkSquare(square, this.currentId);
+            this.board.checkSquare(this);
         }
-        square.classList.add('checked')
+        square.check();
     }
 }
