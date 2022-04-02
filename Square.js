@@ -28,11 +28,15 @@ export default class Square
     {
         this.checked = true;
         this.divElement.classList.add('checked');
+        this.divElement.style.backgroundColor = '#000000';
+        //this.divElement.style.border = '1px solid #7b7b7b'
+        //this.divElement.style.height = '39px';
+        //this.divElement.style.width = '39px';
     }
 
     flag()
     {
-        if (this.isBomb())
+        if (!this.checked)
         {
             this.flagged = true;
             this.divElement.classList.add('flag');

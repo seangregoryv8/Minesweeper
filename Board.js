@@ -14,7 +14,7 @@ export default class Board
         this.game = game;
         this.squares = [];
         this.squareEdges = new SquareEdges();
-        this.bombAmount = 20;
+        this.bombAmount = 10;
         this.flags = 0;
     }
 
