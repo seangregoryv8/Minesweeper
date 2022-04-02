@@ -94,24 +94,4 @@ export default class SquareEdges
     checkBottomLeft = () => this.bottomLeft.condition && !this.edges.left;
     checkBottomRight = () => this.bottomRight.condition && !this.edges.right;
     checkBottom = () => this.bottom.condition;
-
-    /**
-     * 
-     * @param {Array} squares 
-     * @returns 
-     */
-    createNewSquare(squares)
-    {
-        return squares
-        [
-            this.checkLeft() ? this.left.value : 
-            this.checkBottom() ? this.bottom.value : 
-            this.checkTop() ? this.top.value : 
-            this.checkTopRight() ? this.topRight.value : 
-            this.checkTopLeft() ? this.topLeft.value : 
-            this.checkBottom() ? this.bottom.value : 
-            this.checkBottomLeft() ? this.bottomLeft.value : 
-            this.checkBottomRight() ? this.bottomRight.value : 0
-        ];
-    }
 }

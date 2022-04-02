@@ -85,8 +85,47 @@ export default class Board
 
         setTimeout(() => 
         {
-            const newSquare = this.squareEdges.createNewSquare(this.squares);
-            newSquare.click();
+            let e = this.squareEdges;
+            if (e.checkBottom())
+            {
+                const newSquare = this.squares[e.bottom.value];
+                newSquare.click();
+            }
+            if (e.checkBottomLeft())
+            {
+                const newSquare = this.squares[e.bottomLeft.value];
+                newSquare.click();
+            }
+            if (e.checkBottomRight())
+            {
+                const newSquare = this.squares[e.bottomRight.value];
+                newSquare.click();
+            }
+            if (e.checkLeft())
+            {
+                const newSquare = this.squares[e.left.value];
+                newSquare.click();
+            }
+            if (e.checkRight())
+            {
+                const newSquare = this.squares[e.right.value];
+                newSquare.click();
+            }
+            if (e.checkTop())
+            {
+                const newSquare = this.squares[e.top.value];
+                newSquare.click();
+            }
+            if (e.checkTopLeft())
+            {
+                const newSquare = this.squares[e.topLeft.value];
+                newSquare.click();
+            }
+            if (e.checkTopRight())
+            {
+                const newSquare = this.squares[e.topRight.value];
+                newSquare.click();
+            }
         }, 10)
     }
 
