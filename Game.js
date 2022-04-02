@@ -2,11 +2,14 @@ import Board from "./Board.js"
 
 export default class Game
 {
-    constructor() {}
+    constructor()
+    {
+        this.isGameOver = false;
+    }
 
     start()
     {
-        let board = new Board();
+        let board = new Board(this);
         board.createBoard();
     }
 }
