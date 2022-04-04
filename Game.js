@@ -1,4 +1,5 @@
 import Board from "./Board.js"
+import { WINDOW_WIDTH, MARGIN, GRID_SIZE } from "./globals.js";
 
 export default class Game
 {
@@ -11,6 +12,23 @@ export default class Game
     start()
     {
         this.board.createBoard();
+        this.render();
+    }
+
+    async render()
+    {
+        while (true)
+        {
+            console.log("HI")
+            let grid = document.getElementsByClassName('grid')[0]
+            //grid.style.setProperty('vertical-align', 'middle')
+            grid.style.setProperty('width', GRID_SIZE + 'px')
+            grid.style.setProperty('height', GRID_SIZE + 'px')
+            grid.style.setProperty('margin', MARGIN + 'px')
+            this.board.render();
+    
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
     }
 
     checkForWin()

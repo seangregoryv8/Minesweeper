@@ -1,5 +1,5 @@
 import Board from "./Board.js";
-import { GRID } from "./globals.js";
+import { GRID, WINDOW_WIDTH } from "./globals.js";
 
 export default class Square
 {
@@ -29,9 +29,6 @@ export default class Square
         this.checked = true;
         this.divElement.classList.add('checked');
         this.divElement.style.backgroundColor = '#000000';
-        //this.divElement.style.border = '1px solid #7b7b7b'
-        //this.divElement.style.height = '39px';
-        //this.divElement.style.width = '39px';
     }
 
     flag()
@@ -62,6 +59,10 @@ export default class Square
         this.divElement = document.createElement('div');
         this.divElement.setAttribute('id', this.id);
         this.divElement.classList.add(this.class);
+        let size = WINDOW_WIDTH / 10;
+        this.divElement.style.setProperty('width', size);
+        this.divElement.style.setProperty('height', size);
+        //border: 2px solid #9c998d;
         this.total = parseInt(this.divElement.getAttribute('data'));
         GRID.appendChild(this.divElement);
 

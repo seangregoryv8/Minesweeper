@@ -1,5 +1,5 @@
 import Game from "./Game.js";
-import { BOARD_WIDTH } from "./globals.js";
+import { BOARD_WIDTH, WINDOW_WIDTH, GRID_SIZE } from "./globals.js";
 import Square from "./Square.js";
 import SquareEdges from "./SquareEdges.js";
 
@@ -14,7 +14,7 @@ export default class Board
         this.game = game;
         this.squares = [];
         this.squareEdges = new SquareEdges();
-        this.bombAmount = 10;
+        this.bombAmount = 20;
         this.flags = 0;
     }
 
@@ -25,7 +25,21 @@ export default class Board
         {
             this.squares.push(new Square(i, shuffledArray[i], this));
         }
+        
+        this.render();
         this.addNumbers();
+    }
+
+    render()
+    {
+        let size = GRID_SIZE / 10 - 4;
+        for (let i = 0; i < BOARD_WIDTH; i++)
+        {
+            let currentSquare = document.getElementById(i.toString())
+            currentSquare.style.setProperty('width', size + 'px')
+            currentSquare.style.setProperty('height', size + 'px')
+            currentSquare.style.setProperty('margin', '2px')
+        }
     }
  
     addNumbers()
