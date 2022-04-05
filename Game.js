@@ -1,5 +1,5 @@
 import Board from "./Board.js"
-import { WINDOW_WIDTH, MARGIN, GRID_SIZE } from "./globals.js";
+import { MARGIN, GRID_SIZE } from "./globals.js";
 
 export default class Game
 {
@@ -19,7 +19,6 @@ export default class Game
     {
         while (true)
         {
-            console.log("HI")
             let grid = document.getElementsByClassName('grid')[0]
             //grid.style.setProperty('vertical-align', 'middle')
             grid.style.setProperty('width', GRID_SIZE + 'px')

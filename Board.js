@@ -1,5 +1,5 @@
 import Game from "./Game.js";
-import { BOARD_WIDTH, WINDOW_WIDTH, GRID_SIZE } from "./globals.js";
+import { BOARD_WIDTH, GRID_SIZE, click } from "./globals.js";
 import Square from "./Square.js";
 import SquareEdges from "./SquareEdges.js";
 
@@ -14,7 +14,7 @@ export default class Board
         this.game = game;
         this.squares = [];
         this.squareEdges = new SquareEdges();
-        this.bombAmount = 20;
+        this.bombAmount = 1;
         this.flags = 0;
     }
 
@@ -49,7 +49,7 @@ export default class Board
             let total = 0;
             this.squareEdges.setValues(i)
 
-            if (this.squares[i].divElement.classList.contains('valid'))
+            if (this.squares[i].isValid())
             {
                 if (this.squareEdges.checkLeft() && this.squares[this.squareEdges.left.value].isBomb())
                 {
@@ -84,16 +84,19 @@ export default class Board
                     total++;
                 }
             }
-            this.squares[i].setTotal(total);
+            this.squares[i].total = total;
         }
     }
+
+
 
     /**
      * 
      * @param {Square} square
      */
-    checkSquare(square)
+    async checkSquare(square)
     {
+        //https://alvarotrigo.com/blog/wait-1-second-javascript/#:~:text=To%20force%20a%201%20second%20pause%20or%20delay,some%20should%20only%20be%20used%20in%20specific%20circumstances.
         let id = parseInt(square.divElement.id);
         this.squareEdges.setValues(id);
 
@@ -102,43 +105,51 @@ export default class Board
             let e = this.squareEdges;
             if (e.checkBottom())
             {
-                const newSquare = this.squares[e.bottom.value];
-                newSquare.click();
+                console.log(this.squares[e.bottom.value].id);
+                await delay(1000);
+                click(this.squares[e.bottom.value]);
             }
             if (e.checkBottomLeft())
             {
-                const newSquare = this.squares[e.bottomLeft.value];
-                newSquare.click();
+                console.log(this.squares[e.bottomLeft.value].id)
+                await delay(1000);
+                click(this.squares[e.bottomLeft.value]);
             }
             if (e.checkBottomRight())
             {
-                const newSquare = this.squares[e.bottomRight.value];
-                newSquare.click();
+                console.log(this.squares[e.bottomRight.value].id)
+                await delay(1000);
+                click(this.squares[e.bottomRight.value]);
             }
             if (e.checkLeft())
             {
-                const newSquare = this.squares[e.left.value];
-                newSquare.click();
+                console.log(this.squares[e.left.value].id)
+                await delay(1000);
+                click(this.squares[e.left.value]);
             }
             if (e.checkRight())
             {
-                const newSquare = this.squares[e.right.value];
-                newSquare.click();
+                console.log(this.squares[e.right.value].id)
+                await delay(1000);
+                click(this.squares[e.right.value]);
             }
             if (e.checkTop())
             {
-                const newSquare = this.squares[e.top.value];
-                newSquare.click();
+                console.log(this.squares[e.top.value].id)
+                await delay(1000);
+                click(this.squares[e.top.value]);
             }
             if (e.checkTopLeft())
             {
-                const newSquare = this.squares[e.topLeft.value];
-                newSquare.click();
+                console.log(this.squares[e.topLeft.value].id)
+                await delay(1000);
+                click(this.squares[e.topLeft.value]);
             }
             if (e.checkTopRight())
             {
-                const newSquare = this.squares[e.topRight.value];
-                newSquare.click();
+                console.log(this.squares[e.topRight.value].id)
+                await delay(1000);
+                click(this.squares[e.topRight.value]);
             }
         }, 10)
     }
@@ -166,12 +177,6 @@ export default class Board
             }
         }
     }
-
-    /**
-     * 
-     * @param {Number} num
-     */
-    containsBomb = num => this.squares[num].isBomb();
 
     shuffleBombArray()
     {

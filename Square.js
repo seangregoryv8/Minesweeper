@@ -1,5 +1,5 @@
 import Board from "./Board.js";
-import { GRID, WINDOW_WIDTH } from "./globals.js";
+import { GRID, WINDOW_WIDTH, click } from "./globals.js";
 
 export default class Square
 {
@@ -27,7 +27,6 @@ export default class Square
     check()
     {
         this.checked = true;
-        this.divElement.classList.add('checked');
         this.divElement.style.backgroundColor = '#000000';
     }
 
@@ -48,22 +47,14 @@ export default class Square
         this.divElement.innerHTML = '';
     }
 
-    setTotal(total)
-    {
-        this.total = total;
-        this.divElement.setAttribute('data', total);
-    }
-
     createSquare()
     {
         this.divElement = document.createElement('div');
         this.divElement.setAttribute('id', this.id);
-        this.divElement.classList.add(this.class);
         let size = WINDOW_WIDTH / 10;
         this.divElement.style.setProperty('width', size);
         this.divElement.style.setProperty('height', size);
         //border: 2px solid #9c998d;
-        this.total = parseInt(this.divElement.getAttribute('data'));
         GRID.appendChild(this.divElement);
 
         this.addEvents();
@@ -73,7 +64,7 @@ export default class Square
     {
         this.divElement.addEventListener('click', () => 
         {
-            this.click();
+            click(this);
         })
 
         let s = this;
@@ -88,30 +79,6 @@ export default class Square
     }
 
     isBomb() { return this.class == 'bomb'; }
+    isValid() { return this.class == 'valid'; }
 
-    /**
-     * 
-     * @param {Square} square
-     */
-    click(square = this)
-    {
-        this.currentId = square.id;
-        if (square.board.game.isGameOver) return;
-        if (square.checked || square.flagged) return
-        if (this.isBomb())
-        {
-            this.board.game.gameOver();
-        }
-        else
-        {
-            if (this.total != 0)
-            {
-                square.check();
-                square.divElement.innerHTML = this.total.toString();
-                return;
-            }
-            this.board.checkSquare(this);
-        }
-        square.check();
-    }
 }
