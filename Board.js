@@ -1,5 +1,5 @@
 import Game from "./Game.js";
-import { BOARD_WIDTH, GRID_SIZE, click } from "./globals.js";
+import { BOARD_WIDTH, GRID_SIZE, click, delay } from "./globals.js";
 import Square from "./Square.js";
 import SquareEdges from "./SquareEdges.js";
 
@@ -99,57 +99,72 @@ export default class Board
         //https://alvarotrigo.com/blog/wait-1-second-javascript/#:~:text=To%20force%20a%201%20second%20pause%20or%20delay,some%20should%20only%20be%20used%20in%20specific%20circumstances.
         let id = parseInt(square.divElement.id);
         this.squareEdges.setValues(id);
-
         setTimeout(() => 
         {
             let e = this.squareEdges;
             if (e.checkBottom())
             {
-                console.log(this.squares[e.bottom.value].id);
-                await delay(1000);
-                click(this.squares[e.bottom.value]);
+                setTimeout(() => 
+                {
+                    console.log(this.squares[e.bottom.value].id);
+                    click(this.squares[e.bottom.value])
+                }, 1000);
             }
             if (e.checkBottomLeft())
             {
-                console.log(this.squares[e.bottomLeft.value].id)
-                await delay(1000);
-                click(this.squares[e.bottomLeft.value]);
+                setTimeout(() =>
+                {
+                    console.log(this.squares[e.bottomLeft.value].id)
+                    click(this.squares[e.bottomLeft.value])
+                }, 1000);
             }
             if (e.checkBottomRight())
             {
-                console.log(this.squares[e.bottomRight.value].id)
-                await delay(1000);
-                click(this.squares[e.bottomRight.value]);
+                setTimeout(() =>
+                {
+                    console.log(this.squares[e.bottomRight.value].id)
+                    click(this.squares[e.bottomRight.value]);
+                }, 1000);
             }
             if (e.checkLeft())
             {
-                console.log(this.squares[e.left.value].id)
-                await delay(1000);
-                click(this.squares[e.left.value]);
+                setTimeout(() =>
+                {
+                    console.log(this.squares[e.left.value].id);
+                    click(this.squares[e.left.value]);
+                }, 1000);
             }
             if (e.checkRight())
             {
-                console.log(this.squares[e.right.value].id)
-                await delay(1000);
-                click(this.squares[e.right.value]);
+                setTimeout(() =>
+                {
+                    console.log(this.squares[e.right.value].id)
+                    click(this.squares[e.right.value])
+                }, 1000);
             }
             if (e.checkTop())
             {
-                console.log(this.squares[e.top.value].id)
-                await delay(1000);
-                click(this.squares[e.top.value]);
+                setTimeout(() =>
+                {
+                    console.log(this.squares[e.top.value].id)
+                    click(this.squares[e.top.value])
+                }, 1000);
             }
             if (e.checkTopLeft())
             {
-                console.log(this.squares[e.topLeft.value].id)
-                await delay(1000);
-                click(this.squares[e.topLeft.value]);
+                setTimeout(() =>
+                {
+                    console.log(this.squares[e.topLeft.value].id)
+                    click(this.squares[e.topLeft.value])
+                }, 1000);
             }
             if (e.checkTopRight())
             {
-                console.log(this.squares[e.topRight.value].id)
-                await delay(1000);
-                click(this.squares[e.topRight.value]);
+                setTimeout(() =>
+                {
+                    console.log(this.squares[e.topRight.value].id)
+                    click(this.squares[e.topRight.value])
+                }, 1000);
             }
         }, 10)
     }
